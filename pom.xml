@@ -6,6 +6,9 @@
     <modules>
         <module>basic-mybatis-support-common</module>
         <module>basic-mybatis-support-core</module>
+        <module>basic-mybatis-support-starter</module>
+        <module>basic-mybatis-support-autoconfigure</module>
+        <module>basic-mybatis-support-autoconfigure-test</module>
     </modules>
 
     <parent>
