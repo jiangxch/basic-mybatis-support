@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- Root Context: defines shared resources visible to all other web components -->
+    <context:component-scan base-package="com.github.jiangxch.mybatis.test.core.spring"/>
+    <!-- blocked autowire -->
+    <context:annotation-config/>
+
+    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!-- 连接数据库的驱动，连接字符串，用户名和登录密码-->
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:mem:blog;DB_CLOSE_DELAY=-1"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <!-- define the SqlSessionFactory -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+    <!-- scan for mappers and let them be autowired -->
+    <bean id="h2LocalScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.github.jiangxch.mybatis.test.core.mapper"/>
+    </bean>
+</beans>

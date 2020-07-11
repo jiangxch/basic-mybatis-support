@@ -113,7 +113,13 @@
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
-                <version>3.3.1</version>
+                <version>3.5.0</version>
+            </dependency>
+            <!-- mybatis spring -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>2.0.5</version>
             </dependency>
 
             <!--    slf4j api        -->
@@ -123,6 +129,17 @@
                 <version>1.7.25</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>4.2.1.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>4.2.1.RELEASE</version>
+            </dependency>
 
             <!--    slf4j api        -->
             <dependency>
@@ -144,6 +161,19 @@
                     </exclusion>
                 </exclusions>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>4.2.1.RELEASE</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.0.18</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
