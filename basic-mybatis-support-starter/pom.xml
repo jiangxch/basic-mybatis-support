@@ -11,5 +11,8 @@
 
     <artifactId>basic-mybatis-support-starter</artifactId>
 
+    <dependencies>
+
+    </dependencies>
 
 </project>

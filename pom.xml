@@ -101,6 +101,17 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.github.jiangxch.mybatis</groupId>
+                <artifactId>basic-mybatis-support-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jiangxch.mybatis</groupId>
+                <artifactId>basic-mybatis-support-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- 单元测试 -->
             <dependency>
                 <groupId>junit</groupId>
