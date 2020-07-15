@@ -20,7 +20,6 @@
         <dependency>
             <groupId>com.github.jiangxch.mybatis</groupId>
             <artifactId>basic-mybatis-support-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>

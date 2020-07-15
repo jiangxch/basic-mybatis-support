@@ -111,6 +111,16 @@
                 <artifactId>basic-mybatis-support-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.jiangxch.mybatis</groupId>
+                <artifactId>basic-mybatis-support-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jiangxch.mybatis</groupId>
+                <artifactId>basic-mybatis-support-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- 单元测试 -->
             <dependency>
