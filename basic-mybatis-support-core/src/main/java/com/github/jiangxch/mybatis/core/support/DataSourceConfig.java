@@ -1,5 +1,6 @@
 package com.github.jiangxch.mybatis.core.support;
 
+import com.google.common.base.Strings;
 import lombok.Getter;
 
 /**
@@ -29,8 +30,14 @@ public class DataSourceConfig {
     }
 
     private void validate() {
-        assert driverClassName!=null : "[driverClassName] must not be null";
-        assert url!=null : "[url] must not be null";
-        assert username!=null : "[username] must not be null";
+        if (Strings.isNullOrEmpty(driverClassName)) {
+            throw new RuntimeException("[driverClassName] must not be null");
+        }
+        if (Strings.isNullOrEmpty(url)) {
+            throw new RuntimeException("[url] must not be null");
+        }
+        if (Strings.isNullOrEmpty(username)) {
+            throw new RuntimeException( "[username] must not be null");
+        }
     }
 }

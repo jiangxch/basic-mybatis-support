@@ -21,6 +21,8 @@ public class DynamicDataSource extends AbstractDataSource implements Initializin
 
     private DruidDataSource druidDataSource;
 
+
+
     @Override
     public Connection getConnection() throws SQLException {
         return druidDataSource.getConnection();
@@ -31,7 +33,7 @@ public class DynamicDataSource extends AbstractDataSource implements Initializin
         return druidDataSource.getConnection(username,password);
     }
 
-    private DruidDataSource buildDruidDataSource() {
+    public static DruidDataSource buildDruidDataSource() {
         long start = System.currentTimeMillis();
         DruidDataSource ds;
         ds = new DruidDataSource();
@@ -40,6 +42,7 @@ public class DynamicDataSource extends AbstractDataSource implements Initializin
         ds.setUrl(dsc.getUrl());
         ds.setUsername(dsc.getUsername());
         ds.setPassword(dsc.getPassword());
+        ds.setDriverClassName(dsc.getDriverClassName());
         try {
             ds.setFilters("stat,mergeStat,slf4j");
         } catch (Exception e) {

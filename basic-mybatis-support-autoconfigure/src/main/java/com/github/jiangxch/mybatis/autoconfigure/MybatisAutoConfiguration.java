@@ -1,5 +1,6 @@
 package com.github.jiangxch.mybatis.autoconfigure;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.github.jiangxch.mybatis.core.spring.DynamicDataSource;
 import com.google.common.collect.Iterables;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,12 +15,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,33 +30,22 @@ import java.util.List;
 @Configuration
 @ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
 @EnableConfigurationProperties(MybatisProperties.class)
-@AutoConfigureAfter({ DataSourceAutoConfiguration.class })
 public class MybatisAutoConfiguration {
 
     @Autowired
     private MybatisProperties mybatisProperties;
-    @Autowired
-    private DataSourceProperties dataSourceProperties;
 
     @Bean
     @ConditionalOnMissingBean
-    public DataSource dataSource(){
-        DynamicDataSource ds = new DynamicDataSource();
-        return ds;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnBean(DataSource.class)
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
+    public SqlSessionFactoryBean sqlSessionFactoryBean(){
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-        String configLocation = "classpath*:mybatis/basic-mybatis-support-config.xml";
+        String configLocation = "META-INF/basic-mybatis-support-config.properties";
         if (mybatisProperties.getConfigLocation() != null
                 && mybatisProperties.getConfigLocation().length() != 0) {
             configLocation = mybatisProperties.getConfigLocation();
         }
-
         factoryBean.setConfigLocation(new ClassPathResource(configLocation));
+        factoryBean.setDataSource(DynamicDataSource.buildDruidDataSource());
         factoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
         List<Resource> mapperLocations = new ArrayList<>();
         if (mybatisProperties.getMapperLocations() != null) {
