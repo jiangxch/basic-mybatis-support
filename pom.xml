@@ -108,6 +108,11 @@
             </dependency>
             <dependency>
                 <groupId>com.github.jiangxch.mybatis</groupId>
+                <artifactId>basic-mybatis-support-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jiangxch.mybatis</groupId>
                 <artifactId>basic-mybatis-support-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -196,4 +201,16 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>fs</id>
+            <name>fs-snapshot</name>
+            <url>http://maven.firstshare.cn/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+        <repository>
+            <id>fs</id>
+            <name>fs-release</name>
+            <url>http://maven.firstshare.cn/artifactory/libs-release-local</url>
+        </repository>
+    </distributionManagement>
 </project>
