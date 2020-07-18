@@ -12,7 +12,11 @@
     <artifactId>basic-mybatis-support-starter</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.github.jiangxch.mybatis</groupId>
+            <artifactId>basic-mybatis-support-autoconfigure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
