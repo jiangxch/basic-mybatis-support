@@ -32,7 +32,7 @@ public class MybatisAutoConfiguration {
     @ConditionalOnMissingBean
     public SqlSessionFactoryBean sqlSessionFactoryBean(){
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-        String configLocation = "basic-mybatis-support-config";
+        String configLocation = "META-INF/mybatis/mybatis-config.xml";
         if (mybatisProperties.getConfigLocation() != null
                 && mybatisProperties.getConfigLocation().length() != 0) {
             configLocation = mybatisProperties.getConfigLocation();
