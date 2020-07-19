@@ -19,6 +19,7 @@
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
     </bean>
     <!-- scan for mappers and let them be autowired -->
     <bean id="h2LocalScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
