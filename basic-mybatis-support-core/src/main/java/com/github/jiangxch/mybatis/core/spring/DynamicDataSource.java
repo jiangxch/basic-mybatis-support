@@ -54,7 +54,11 @@ public class DynamicDataSource extends AbstractDataSource implements Initializin
         ds.setMaxWait( 60000);
         ds.setTimeBetweenEvictionRunsMillis(3000);
         ds.setMinEvictableIdleTimeMillis( 300000);
-        ds.setValidationQuery("SELECT 'x'");
+        if (dsc.getUrl().contains("derby")) {
+            ds.setValidationQuery("select COUNT(*) from SYS.SYSALIASES;");
+        } else {
+            ds.setValidationQuery("SELECT 'x'");
+        }
         ds.setTestWhileIdle(true);
         ds.setTestOnReturn(false);
         ds.setTestOnBorrow(false);
