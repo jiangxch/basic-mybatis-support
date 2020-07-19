@@ -2,12 +2,14 @@ package com.github.jiangxch.mybatis.core.support;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author: jiangxch
  * @date: 2020/7/14 下午11:47
  */
 @Getter
+@Setter
 public class DataSourceConfig {
     private static final String DRIVER_CLASS_NAME_KEY = "driverClassName";
     private static final String USERNAME_KEY = "username";
@@ -25,6 +27,20 @@ public class DataSourceConfig {
         dsc.username = System.getProperty(USERNAME_KEY);
         dsc.password = System.getProperty(PASSWORD_KEY);
         dsc.url = System.getProperty(URL);
+        dsc.validate();
+        return dsc;
+    }
+
+    public static DataSourceConfig getFromSystemProperties(String driverClassName,
+                                                           String url,
+                                                           String username,
+                                                           String password
+                                                           ){
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.driverClassName = driverClassName;
+        dsc.url = url;
+        dsc.username = username;
+        dsc.password = password;
         dsc.validate();
         return dsc;
     }

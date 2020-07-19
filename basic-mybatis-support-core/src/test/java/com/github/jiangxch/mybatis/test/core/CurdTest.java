@@ -74,16 +74,6 @@ public class CurdTest {
         }
     }
 
-    @Test
-    public void testSelectByCondition() {
-
-    }
-
-    @Test
-    public void testSelectByPage() {
-
-    }
-
 
 
     @Test

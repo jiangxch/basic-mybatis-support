@@ -1,6 +1,7 @@
 package com.github.jiangxch.mybatis.autoconfigure;
 
 import com.github.jiangxch.mybatis.core.spring.DynamicDataSource;
+import com.github.jiangxch.mybatis.core.support.DataSourceConfig;
 import com.google.common.collect.Iterables;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -17,15 +18,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: jiangxch
  * @date: 2020/7/9 20:02
  */
 @Configuration
-@ConditionalOnClass({ SqlSessionFactory.class, SqlSessionFactoryBean.class })
+@ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class})
 @EnableConfigurationProperties(MybatisProperties.class)
 public class MybatisAutoConfiguration implements ApplicationContextAware {
 
@@ -38,21 +37,28 @@ public class MybatisAutoConfiguration implements ApplicationContextAware {
     public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         String configLocation = "META-INF/mybatis/mybatis-config.xml";
-        if (mybatisProperties.getConfigLocation() != null
-                && mybatisProperties.getConfigLocation().length() != 0) {
-            configLocation = mybatisProperties.getConfigLocation();
-        }
         factoryBean.setConfigLocation(new ClassPathResource(configLocation));
-        factoryBean.setDataSource(DynamicDataSource.buildDruidDataSource());
-        factoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
 
+        DataSourceConfig dsc = convertMybatisProperties2DataSourceConfig(mybatisProperties);
+
+        factoryBean.setDataSource(DynamicDataSource.buildDruidDataSource(dsc));
         Resource[] mapperLocations = applicationContext.getResources("classpath:mybatis/mapper/*.xml");
         factoryBean.setMapperLocations(mapperLocations);
+        factoryBean.setTypeHandlersPackage(mybatisProperties.getTypeHandlerPackage());
         return factoryBean;
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    private DataSourceConfig convertMybatisProperties2DataSourceConfig(MybatisProperties mybatisProperties) {
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setDriverClassName(mybatisProperties.getDriverClassName());
+        dsc.setUrl(mybatisProperties.getUrl());
+        dsc.setUsername(mybatisProperties.getUsername());
+        dsc.setPassword(mybatisProperties.getPassword());
+        return dsc;
     }
 }

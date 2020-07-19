@@ -16,11 +16,10 @@ import java.sql.SQLException;
  * @date: 2020/7/11 下午2:31
  */
 
-public class DynamicDataSource extends AbstractDataSource implements InitializingBean {
+public class DynamicDataSource extends AbstractDataSource {
     private static final Logger log = LoggerFactory.getLogger(DynamicDataSource.class);
 
     private DruidDataSource druidDataSource;
-
 
 
     @Override
@@ -33,11 +32,10 @@ public class DynamicDataSource extends AbstractDataSource implements Initializin
         return druidDataSource.getConnection(username,password);
     }
 
-    public static DruidDataSource buildDruidDataSource() {
+    public static DruidDataSource buildDruidDataSource(DataSourceConfig dsc) {
         long start = System.currentTimeMillis();
         DruidDataSource ds;
         ds = new DruidDataSource();
-        DataSourceConfig dsc = DataSourceConfig.getFromSystemProperties();
 
         ds.setUrl(dsc.getUrl());
         ds.setUsername(dsc.getUsername());
@@ -78,10 +76,5 @@ public class DynamicDataSource extends AbstractDataSource implements Initializin
             log.info("build dataSource({}) url={}, cost {}ms", ds.getName(), dsc.getUrl(), cost);
         }
         return ds;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        this.druidDataSource = buildDruidDataSource();
     }
 }
